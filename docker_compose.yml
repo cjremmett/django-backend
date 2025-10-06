@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_NAME=employee_db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
