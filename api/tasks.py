@@ -1,7 +1,7 @@
 from celery import shared_task
 import requests
 import logging
-import utils
+from api.utils import append_to_log
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ def notify_external_service(employee_data):
         employee_data: Dictionary containing employee information
     """
     try:
-        response = utils.append_to_log('TRACE', str(employee_data))
+        response = append_to_log('TRACE', str(employee_data))
         
         response.raise_for_status()  # Raise exception for bad status codes
         
