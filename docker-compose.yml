@@ -1,9 +1,4 @@
 services:
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6381:6381"
-    
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -17,12 +12,10 @@ services:
       - DB_PASSWORD=pass
       - DB_HOST=host.docker.internal
       - DB_PORT=5432
-      - CELERY_BROKER_URL=redis://redis:6381/0
-      - CELERY_RESULT_BACKEND=redis://redis:6381/0
+      - CELERY_BROKER_URL=redis://host.docker.internal:6379/0
+      - CELERY_RESULT_BACKEND=redis://host.docker.internal:6379/0
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    depends_on:
-      - redis
   
   celery:
     build: .
@@ -35,11 +28,9 @@ services:
       - DB_PASSWORD=pass
       - DB_HOST=host.docker.internal
       - DB_PORT=5432
-      - CELERY_BROKER_URL=redis://redis:6381/0
-      - CELERY_RESULT_BACKEND=redis://redis:6381/0
+      - CELERY_BROKER_URL=redis://host.docker.internal:6379/0
+      - CELERY_RESULT_BACKEND=redis://host.docker.internal:6379/0
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    depends_on:
-      - redis
 
 
