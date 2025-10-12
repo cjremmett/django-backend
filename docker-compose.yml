@@ -2,7 +2,7 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - "6381:6381"
     
   web:
     build: .
@@ -17,8 +17,8 @@ services:
       - DB_PASSWORD=pass
       - DB_HOST=host.docker.internal
       - DB_PORT=5432
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6381/0
+      - CELERY_RESULT_BACKEND=redis://redis:6381/0
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -35,8 +35,8 @@ services:
       - DB_PASSWORD=pass
       - DB_HOST=host.docker.internal
       - DB_PORT=5432
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6381/0
+      - CELERY_RESULT_BACKEND=redis://redis:6381/0
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
